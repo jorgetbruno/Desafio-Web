@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Curso</title>
+        <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" />
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		
+		<script>
+		    var input = $(location).attr('href');
+		    var idCurso = parseInt( input.match(/curso\/(\d+)/)[1]);
+			$.ajax({
+			    
+    
+    	    url: "https://cefis.com.br/api/v1/event/" + idCurso + "?include=classes",
+    	    type: "GET",
+    	    data: "",
+    	    dataType: "html"
+    	
+    			}).done(function(resposta) {
+    
+    				var myobj = JSON.parse(resposta);
+    				
+    				
+    				conteudo(myobj);
+    			
+    			}).fail(function(jqXHR, textStatus ) {
+    			    console.log("Request failed: " + textStatus);
+    			
+    			}).always(function() {
+    			    console.log("completou");
+    			});
+    			
+    			
+    			function conteudo(cont){
+    
+                    //Apresenta os valores para o video de divulgação e o banner do curso
+                    document.getElementById("video").setAttribute("src", cont.data.video_divulgacao);
+                    document.getElementById("banner").setAttribute("src", cont.data.banner);
+                    
+                    //Apresenta o Titulo do curso
+                    $('#classTitle').append(cont.data.title);
+                    
+                    //Apresenta as aulas do curso
+                    console.log(cont.data.classes);
+                    //Vefifica se o curso possui aulas para serem apresentadas
+                    if(cont.data.classes.length != 0 ){
+                        cont.data.classes.forEach(function(classe){
+        							$('#aulas').append('<div class="media text-muted pt-3"><p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray"><strong class="d-block text-gray-dark">' + classe.title + '</strong></p></div>')
+        							});
+                    }else{
+                        $('#aulas').append('<div class="media text-muted pt-3"><p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray"><strong class="d-block text-gray-dark">Nenhuma aula foi encontrada</strong></p></div>')
+                    }
+                    
+    			}
+
+			
+		</script>
+		
+	</head>
+	<body>
+    <header>
+	    <!-- .navbar -->
+			<nav class="navbar navbar-dark bg-dark">
+			  <a class="navbar-brand" href="/">
+			    <img src="https://cdn.cefis.com.br/assets/images/site/svg/logo-cefis.svg" width="100" height="100" alt="">
+			  </a>
+			</nav>
+			<!-- /.navbar -->
+  	</header>
+		
+		<!-- /.video -->
+        <div class="embed-responsive embed-responsive-21by9">
+          <iframe class="embed-responsive-item" id="video" src="" allowfullscreen></iframe>
+        </div>
+		<!-- /.video -->
+		
+		<!-- .corpo -->
+		<main role="main" class="container">
+          <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-secondary rounded shadow-sm">
+            <img class="mr-3" src="" id="banner" alt="" width="48" height="48">
+            <div class="lh-100">
+              <h6 class="mb-0 text-white lh-100" id="classTitle"></h6>
+            </div>
+          </div>
+            <div class="my-3 p-3 bg-white rounded shadow-sm">
+                <h6 class="border-bottom border-gray pb-2 mb-0">Aulas</h6>
+                <div id="aulas">
+                    
+                </div>
+             </div>
+         <!-- /.corpo -->
+             
+		</main>
+	</body>
+</html>

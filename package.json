@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/jorgetbruno/Desafio-Web#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "ajax-request": "^1.2.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "request": "^2.88.0"
   }
 }
