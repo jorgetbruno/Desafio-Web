@@ -1,0 +1,22 @@
+{
+  "name": "desafio_web_cefis",
+  "version": "1.0.0",
+  "description": "O desafio consiste na implementação de uma listagem de conteúdo (cursos) utilizando um",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jorgetbruno/Desafio-Web.git"
+  },
+  "author": "Jorge Teixeira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jorgetbruno/Desafio-Web/issues"
+  },
+  "homepage": "https://github.com/jorgetbruno/Desafio-Web#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
